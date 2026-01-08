@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hatsune Miku – Information System</title>
+
+<style>
+/* ========== ROOT ========== */
+:root {
+  --miku: #39c5bb;
+  --bg-light: #f5fefe;
+  --bg-dark: #1f1f1f;
+  --card-light: #ffffff;
+  --card-dark: #2a2a2a;
+  --text-light: #222;
+  --text-dark: #eaeaea;
+}
+
+/* ========== BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* ========== LOGIN ========== */
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: var(--card-light);
+  padding: 30px;
+  width: 320px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+body.dark .login-box {
+  background: var(--card-dark);
+  border-color: #444;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: var(--miku);
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ========== NAVBAR ========== */
+header {
+  background: var(--card-light);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+body.dark header {
+  background: var(--card-dark);
+  border-color: #444;
+}
+
+header h2 {
+  color: var(--miku);
+}
+
+header nav a,
+header nav button {
+  margin-left: 15px;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font-weight: 500;
+}
+
+/* ========== HERO ========== */
+.hero {
+  background: #dff7f5;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+body.dark .hero {
+  background: #263c3a;
+}
+
+.hero h1 {
+  font-size: 44px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+/* ========== SECTION ========== */
+section {
+  padding: 70px 20px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 40px;
+}
+
+/* ========== ARTICLE ========== */
+.article {
+  max-width: 900px;
+  margin: auto;
+}
+
+.article p {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* ========== GALLERY ========== */
+.gallery {
+  background: #fff4cf;
+}
+
+body.dark .gallery {
+  background: #3b3523;
+}
+
+.gallery-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 25px;
+}
+
+.gallery-card {
+  height: 100px;
+  background: var(--card-light);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+body.dark .gallery-card {
+  background: var(--card-dark);
+  border-color: #444;
+}
+
+.gallery-card img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: #d6f3ff;
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 14px;
+}
+
+body.dark footer {
+  background: #263c3a;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="login-wrapper">
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="error" class="error"></p>
+  </div>
+</div>
+
+<!-- MAIN WEBSITE -->
+<div id="mainPage" style="display:none">
+
+<header>
+  <h2>Hatsune Miku</h2>
+  <nav>
+    <span id="userInfo"></span>
+    <button onclick="toggleTheme()">🌙</button>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Hatsune Miku</h1>
+  <p>Digital Idol, Vocaloid Technology, and Global Culture</p>
+</section>
+
+<section>
+  <h2 class="section-title">Article</h2>
+  <div class="article">
+    <p>
+      Hatsune Miku is a virtual singer developed by Crypton Future Media using
+      Vocaloid technology. Since her debut in 2007, she has transformed how
+      digital music and community-based creation evolve.
+    </p>
+    <p>
+      From an information system perspective, Hatsune Miku represents a digital
+      ecosystem where users contribute, manage, and distribute content globally.
+    </p>
+  </div>
+</section>
+
+<section class="gallery">
+  <h2 class="section-title">Gallery</h2>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-card">
+      <img src="assets/gallery/miku1.png" alt="Hatsune Miku Concert">
+      <div class="gallery-info">
+        <h4>Live Concert</h4>
+        <p>Hatsune Miku performing in a hologram-based concert.</p>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <img src="assets/gallery/miku2.png" alt="Chibi Hatsune Miku">
+      <div class="gallery-info">
+        <h4>Chibi Illustration</h4>
+        <p>Popular chibi-style fan illustration of Hatsune Miku.</p>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <img src="assets/gallery/miku3.png" alt="Cute Hatsune Miku">
+      <div class="gallery-info">
+        <h4>Character Design</h4>
+        <p>Visual representation of Hatsune Miku’s character.</p>
+      </div>
+    </div>
+
+    <div class="gallery-card">
+      <img src="assets/gallery/miku4.png" alt="Hatsune Miku Leek">
+      <div class="gallery-info">
+        <h4>Iconic Attribute</h4>
+        <p>The leek as an iconic symbol associated with Miku.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <p>© 2026 Hatsune Miku Information System Demo</p>
+</footer>
+
+</div>
+
+<script>
+/* ===== LOGIN SYSTEM ===== */
+const USER = { username: "admin", password: "12345" };
+
+function login() {
+  const u = username.value;
+  const p = password.value;
+  if (!u || !p) {
+    error.textContent = "Field cannot be empty";
+    return;
+  }
+  if (u === USER.username && p === USER.password) {
+    localStorage.setItem("login", u);
+    init();
+  } else {
+    error.textContent = "Invalid username or password";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("login");
+  location.reload();
+}
+
+/* ===== THEME ===== */
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+/* ===== INIT ===== */
+function init() {
+  const user = localStorage.getItem("login");
+  if (user) {
+    loginPage.style.display = "none";
+    mainPage.style.display = "block";
+    userInfo.textContent = "User: " + user;
+  }
+}
+
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+}
+
+init();
+</script>
+
+</body>
+</html>
